@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import type { Product } from "../types/product";
+import type { Category } from "../lib/dummyjson";
 import { useCartStore } from "../store/cartStore";
 import CartDrawer from "./CartDrawer";
 import Navbar from "./Navbar";
@@ -13,7 +14,7 @@ export default function ProductGallery({
   categories,
 }: {
   products: Product[];
-  categories: string[];
+  categories: Category[];
 }) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
@@ -98,11 +99,11 @@ export default function ProductGallery({
                 {categories.map((category) => (
                   <button
                     type="button"
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeCategory === category ? "bg-primary text-white" : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"}`}
+                    key={category.slug}
+                    onClick={() => setActiveCategory(category.slug)}
+                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${activeCategory === category.slug ? "bg-primary text-white" : "border border-slate-200 bg-white text-slate-700 hover:bg-slate-50"}`}
                   >
-                    {category}
+                    {category.name}
                   </button>
                 ))}
               </div>
@@ -138,7 +139,7 @@ export default function ProductGallery({
               >
                 {filteredProducts.map((product) => (
                   <ProductCard
-                    key={product.id}
+                    key={String(product.id)}
                     product={product}
                     onAdd={(item) => addProduct(item)}
                   />

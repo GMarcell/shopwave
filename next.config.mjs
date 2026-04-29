@@ -1,6 +1,4 @@
-import { defineConfig } from "next";
-
-export default defineConfig({
+const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -8,6 +6,12 @@ export default defineConfig({
         protocol: "https",
         hostname: "dummyjson.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.dummyjson.com",
+      },
     ],
   },
-});
+};
+
+export default nextConfig;
